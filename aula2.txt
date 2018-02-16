@@ -1,0 +1,109 @@
+Exercícios
+
+P1.1
+
+Ao usar o ficheiro /dev/random, o sistema operativo necessita de um certo nível mínimo de entropia para poder gerar um valor. Quanto maior o número de bytes que forem pedidos  maior é, em princípio, a quantidade de tempo necessária para gerar um valor. 
+
+No caso do /dev/urandom já não acontece isso, sendo que a resposta é dada rapidamente e sem necessidade de obter maior entropia. Se a entropia estiver a um nível muito baixo, no entanto, isso pode levar a que os números pseudo-aleatórios gerados sejam menos seguros por revelarem propriedades não aleatórias.
+
+O grupo reparou que pedindo um valor de 1024 bytes com /dev/random demoraria demasiado tempo, pelo que, à sugestão do professor, optou por executar com 40 bytes. Nem com esse tamanho a execução conseguiu acompanhar a rapidez do /dev/urandom com 1024 bytes.
+
+Enquanto que o /dev/random poderá ser criptograficamente mais seguro em teoria, não é viável para muitas utilizações que impliquem uma necessidade de gerar números pseudo-aleatórios em tempo real. O facto de poder haver uma grande espera até que se reunam condições de entropia suficientes para gerar um valor pedido não é, na maior parte dos casos, algo que se considera desejável, salvo raras exceções, como por exemplo, gerar chaves OTP (One-Time-Pad).
+
+
+
+P1.2
+
+Usando o haveged, o comando de geração de um valor aleatório através do /dev/random tornou-se incrivelmente mais rápido, ficando a par do /dev/urandom.
+
+O que mudou depois de instalar esse daemon foi a sua capacidade de proporcionar entropia adicional no sistema, através de tempos de execução de linhas de código no CPU. Ao proporcionar mais entropia, o /dev/random não precisa de bloquear pois, à partida, tem sempre entropia suficiente para gerar um valor pedido.
+
+
+P1.3
+
+No ficheiro shamirsecret.py do módulo eVotUM.Cripto, já disponibilizado na máquina virtual, existe uma função designada de generateSecret que só gera segredos com letras e números ASCII.
+
+Isso pode ser claramente visto dentro da condição if em que só se um dado carater aleatório gerado pertence ao conjunto de letras e algarismos é que esse pode fazer parte do segredo gerado.
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+P2.1
+
+A
+
+A partir dos programas disponibilizados, o objetivo é, a partir de um segredo, conseguir distribuí-lo por várias entidades.
+Para dividir o segredo dado no enunciado em 7 partes com quorom de 3, foi necessário gerar uma chave privada RSA através do openssl.
+Depois de ter a chave privada, a única ação necessária foi introduzir os parâmetros corretos no início do programa e definir qual o segredo que se iria criar ("Agora temos um segredo muito confidencial").
+
+B
+
+A diferença entre recoverSecretFromComponents-app.py e recoverSecretFromAllComponents-app.py resume-se a quantidade de componentes da divisão do segredo necessárias à sua correspondente reconstrução.
+
+No caso do recoverSecretFromComponents-app.py, basta iniciar o programa com o parâmetro "number_of_shares" com o valor correspondente ao quorom que foi usado para dividir o segredo.
+
+No caso do recoverSecretFromAllComponents-app.py, o processo é semelhante com exceção que se deve colocar o número total de componentes em que o segredo foi dividido. É, assim, necessário ter os componentes todos para recuperar o segredo.
+
+Em ambos os casos é preciso fornecer o id único usado na divisão e fornecer um certificado gerado a partir a chave privada gerada.
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+P3
+
+De forma a garantir as três propriedades de segurança expostas no enunciado, o algoritmo deverá seguir um mecanismo Encrypt then Mac, uma vez que oferece proteção contra ataques de criptograma escolhido (IND-CCA seguro).
+
+Portanto, em primeiro lugar, deveria ser implementado o algoritmo se cifragem:
+
+enc (plaintext,etiqueta):
+	cyphertext = cifra(plaintext) //a chave é dia.mes.ano
+	mac = hmac(key, cyphertext + etiqueta)
+	return cyphertext + etiqueta + mac
+
+dec (segredo): //segredo constitui cyphertext + etiqueta + hmac
+	cyphertext, etiqueta, mac = seperate(segredo)
+	if (hmac(key,cyphertext + etiqueta) == mac):
+		plaintext = dec(cyphertext, cypher_key)
+		return plaintext
+	else
+		return -1
+
+
+----------------------------------------------------------------------------------------------------------
+
+P4
+
+
+País - Noruega
+
+-------
+
+Entidade Certificadora - Commfides Norge AS
+
+Tamanho de chave pública - 2048 bits
+
+Algoritmo de chave pública - RSA
+
+Algoritmo de assinaturas - sha256WithRSAEncryption
+
+-------
+
+Entidade Certificadora - Nordea	Bank Norge ASA
+
+Tamanho de chave pública - 4096 bits
+
+Algoritmo de chave pública - RSA
+
+Algoritmo de assinaturas - sha256WithRSAEncryption
+
+-------
+
+Entidade Certificadora - Statoil ASA
+
+Tamanho de chave pública - 4096 bits
+
+Algoritmo de chave pública - RSA
+
+Algoritmo de assinaturas - sha1WithRSAEncryption (provavelmente deveria ser sha256)
