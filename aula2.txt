@@ -55,6 +55,8 @@ P3
 
 De forma a garantir as três propriedades de segurança expostas no enunciado, o algoritmo deverá seguir um mecanismo Encrypt then Mac, uma vez que oferece proteção contra ataques de criptograma escolhido (IND-CCA seguro).
 
+A etiqueta não necessita obrigatoriamente de exibir confidencialidade, bastando garantir a integridade e autenticidade, usando para isso o HMAC.
+
 Portanto, em primeiro lugar, deveria ser implementado o algoritmo se cifragem:
 
 enc (plaintext,etiqueta):
@@ -62,10 +64,44 @@ enc (plaintext,etiqueta):
 	mac = hmac(key, cyphertext + etiqueta)
 	return cyphertext + etiqueta + mac
 
+E, se seguida, o algoritmo de decifragem.
+
 dec (segredo): //segredo constitui cyphertext + etiqueta + hmac
 	cyphertext, etiqueta, mac = seperate(segredo)
 	if (hmac(key,cyphertext + etiqueta) == mac):
 		plaintext = dec(cyphertext, cypher_key)
+		return plaintext
+	else
+		return -1
+
+
+Caso fosse desejado, poder-se-ia usar uma variante Encrypt and MAC, que seria implementada da seguinte forma:
+
+enc (plaintext,etiqueta):
+	cyphertext = cifra(plaintext) //a chave é dia.mes.ano
+	mac = hmac(key, plaintext + etiqueta)
+	return etiqueta + plaintext + mac
+
+dec (segredo): //segredo constitui etiqueta + cyphertext + hmac
+	etiqueta, cyphertext, mac = seperate(segredo)
+	plaintext = dec(cyphertext, cypher_key)
+	if (hmac(key,plaintext + etiqueta) == mac):
+		return plaintext
+	else
+		return -1
+
+Poder-se-ia ainda usar a variante MAC then Encrypt, que seria sensivelmente da forma seguinte:
+
+
+enc (plaintext,etiqueta):
+	mac = hmac(key, plaintext + etiqueta)
+	cyphertext = cifra(plaintext + mac) //a chave é dia.mes.ano
+	return cyphertext + etiqueta
+
+dec (segredo): //segredo constitui cyphertext + etiqueta
+	cyphertext, etiqueta = seperate(segredo)
+	plaintext, mac = seperate (dec(cyphertext,cypher_key))
+	if (hmac(key,plaintext + etiqueta) == mac):
 		return plaintext
 	else
 		return -1
