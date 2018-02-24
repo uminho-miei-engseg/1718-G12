@@ -1,0 +1,35 @@
+# general
+(gen) banner: SSH-2.0-0000 SFTP
+(gen) compatibility: OpenSSH 3.9-6.6, Dropbear SSH 0.53+
+(gen) compression: enabled (zlib)
+
+# key exchange algorithms
+(kex) diffie-hellman-group14-sha1         -- [warn] using weak hashing algorithm
+                                          `- [info] available since OpenSSH 3.9, Dropbear SSH 0.53
+(kex) diffie-hellman-group-exchange-sha1  -- [fail] removed (in server) since OpenSSH 6.7, unsafe algorithm
+                                          `- [warn] using weak hashing algorithm
+                                          `- [info] available since OpenSSH 2.3.0
+(kex) diffie-hellman-group1-sha1          -- [fail] removed (in server) since OpenSSH 6.7, unsafe algorithm
+                                          `- [fail] disabled (in client) since OpenSSH 7.0, logjam attack
+                                          `- [warn] using small 1024-bit modulus
+                                          `- [warn] using weak hashing algorithm
+                                          `- [info] available since OpenSSH 2.3.0, Dropbear SSH 0.28
+
+# host-key algorithms
+(key) ssh-rsa                             -- [info] available since OpenSSH 2.5.0, Dropbear SSH 0.28
+
+# encryption algorithms (ciphers)
+(enc) aes256-ctr                          -- [info] available since OpenSSH 3.7, Dropbear SSH 0.52
+(enc) aes128-ctr                          -- [info] available since OpenSSH 3.7, Dropbear SSH 0.52
+
+# message authentication code algorithms
+(mac) hmac-sha1                           -- [warn] using encrypt-and-MAC mode
+                                          `- [warn] using weak hashing algorithm
+                                          `- [info] available since OpenSSH 2.1.0, Dropbear SSH 0.28
+
+# algorithm recommendations (for OpenSSH 3.9)
+(rec) -diffie-hellman-group1-sha1         -- kex algorithm to remove 
+(rec) -diffie-hellman-group-exchange-sha1 -- kex algorithm to remove 
+(rec) +aes192-ctr                         -- enc algorithm to append 
+(rec) -hmac-sha1                          -- mac algorithm to remove 
+

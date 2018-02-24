@@ -1,6 +1,6 @@
-Exercício 1
+# Exercício 1
 
-P1.1
+## P1.1
 
 As modificações no código feitas em cada um dos ficheiros tiveram o objetivo, como foi pedido no enunciado, de simplificar o seu uso.
 
@@ -16,18 +16,19 @@ O ficheiro unblindSignature-app.py lê três componentes de três ficheiros dife
 
 Por fim, o ficheiro verifySignature-app.py recebe uma chave pública (tem de ser a chave pública correspondente à chave privada usada anteriormente em generateBlindSignature-app.py) e pede ao utilizador para introduzir a mensagem original que foi assinada. De seguida, é lida a assinatura de "signature.txt" e os componentes blindComponents e pRDashComponents de "requester_components.txt". Se tudo for válido, é impresso no ecrã o veredicto, ou seja, se a assinatura corresponde à mensagem introduzida ou não. A imagem anexada mostra todo o processo no terminal da máquina virtual (inserir imagem).
 
-Exercício 2
-
-P2.1
+# Exercício 2
+## P2.1
 
 Grupo 12 - empresas não bancárias não portuguesas que estão cotadas na Euronext.
 
 Empresas escolhidas: Nokia, Volkswagen, Atari e Axa.
 
 
-1. (anexos estão na pasta /imagens)
+### 1\. 
+(anexos estão na pasta /imagens)
 
-2. O site com pior cotação foi o site da Atari. Se analisarmos o relatório dado pelo ssllabs, podemos ver que o site tem um número considerável de vulnerablidades.
+### 2\. 
+O site com pior cotação foi o site da Atari. Se analisarmos o relatório dado pelo ssllabs, podemos ver que o site tem um número considerável de vulnerablidades.
 
 Em primeiro lugar, é vulnerável ao ataque POODLE, que é um ataque famoso proveniente da utilização so SSL3. Normalmente essa vulnerabilidade pode ser mitigada através da desativação do SSL3, usando o TLS 1.1 e seguintes.
 Em segundo lugar, o site usa cifras RC4 com protocolos mais antigos, o que é desaconselhável. Segundo o ssllabs, o RC4 no TLS foi quebrado.
@@ -35,4 +36,23 @@ Por último, o site suporta uma série de Cipher Suites que são fracas (WEAK), 
 
 Portanto, é claro que existem sérios problemas de segurança no site da ATARI, o que não é completamente inesperado, sendo que o site não oferece serviços que necessitem de máxima segurança, como serviços bancários. No entanto, as vulnerabilidades devem ser corrigidas para evitar ataques futuros.
 
-3. 
+### 3\. 
+A vulnerabilidade ROBOT permite operações de assinatura e decifragem RSA utilizando a chave privada dum servidor TLS. Isto não permite obter a chave privada do servidor, apenas permite assinar e decifrar mensagens utilizando-a.
+Em termos práticos, se um servidor for vulnerável a este ataque, significa que estará a utilizar o algoritmo RSA para cifragem. No entanto, a maioria das conexões TLS modernas utilizam RSA apenas para assinaturas, cifrando com ECDH.
+
+# Exercício 3
+## P3.1
+
+Grupo 12 - empresas não portuguesas cotadas na Euronext.
+
+Empresas escolhidas: Nokia, Volkswagen, Atari e Axa.
+
+### 1\.
+(anexos estão na pasta /ssh-audit_results)
+
+### 2\.
+Os servidores escolhidos da Volkswagen e da Nokia utilizam OpenSSH 5.3.
+O servidor escolhido da Atari utiliza OpenSSH 6.6.1p1.
+O servidor escolhido da Axa não indica qual o software que utilizam, mas é compatível com OpenSSH 3.9-6.6 e Dropbear SSH 0.53+.
+
+### 3\.
