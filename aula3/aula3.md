@@ -56,3 +56,10 @@ O servidor escolhido da Atari utiliza OpenSSH 6.6.1p1.
 O servidor escolhido da Axa não indica qual o software que utilizam, mas é compatível com OpenSSH 3.9-6.6 e Dropbear SSH 0.53+.
 
 ### 3\.
+De acordo com o CVE details, o OpenSSH 5.3 tem 10 vulnerabilidades, e o OpenSSH 6.6.1p1 (que se assume ser a versão 6.6 P1) tem 5 vulnerabilidades
+
+### 4\.
+Com um _CVSS score_ de 7.8, o OpenSSH 6.6 P1 tem a vulnerabilidade vais grave, seguido do OpenSSH 5.3 com 2 vulnerabilidades com um _CVSS score_ de 7.5.
+
+### 5\.
+A vulnerabilidade [CVE-2016-0778](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2016-0778) permite a servidores remotos causarem um _denial of service_. Esta vulnerabilidade foi _patched_ na versão 7.1 P2.
