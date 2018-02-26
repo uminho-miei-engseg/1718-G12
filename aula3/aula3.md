@@ -14,7 +14,7 @@ O ficheiro generateBlindSignature-app.py recebe como argumento uma chave privada
 
 O ficheiro unblindSignature-app.py lê três componentes de três ficheiros diferentes: lê a blind signature do ficheiro "blind_signature.txt", o blindComponents de "requester_components.txt" e o pRDashComponents de "init.txt". A assinatura é de seguida desofuscada (unblinded) e é guardada no ficheiro "signature.txt" e impressa no ecrã.
 
-Por fim, o ficheiro verifySignature-app.py recebe uma chave pública (tem de ser a chave pública correspondente à chave privada usada anteriormente em generateBlindSignature-app.py) e pede ao utilizador para introduzir a mensagem original que foi assinada. De seguida, é lida a assinatura de "signature.txt" e os componentes blindComponents e pRDashComponents de "requester_components.txt". Se tudo for válido, é impresso no ecrã o veredicto, ou seja, se a assinatura corresponde à mensagem introduzida ou não. A imagem anexada mostra todo o processo no terminal da máquina virtual (inserir imagem).
+Por fim, o ficheiro verifySignature-app.py recebe uma chave pública (tem de ser a chave pública correspondente à chave privada usada anteriormente em generateBlindSignature-app.py) e pede ao utilizador para introduzir a mensagem original que foi assinada. De seguida, é lida a assinatura de "signature.txt" e os componentes blindComponents e pRDashComponents de "requester_components.txt". Se tudo for válido, é impresso no ecrã o veredicto, ou seja, se a assinatura corresponde à mensagem introduzida ou não. A imagem anexada `p1.1.png` mostra todo o processo no terminal da máquina virtual.
 
 # Exercício 2
 ## P2.1
