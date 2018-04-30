@@ -45,3 +45,21 @@ Para conseguir colocar o valor nessa variável foi necessário obter o valor do 
 
 ## P1.7
 
+No exercício anterior, o objetivo era conseguir invocar uma função através do seu endereço. No entanto, o código em si, certa altura, chamava uma função à qual teria de se atribuir o endereço de *win*.
+
+Neste exercício a função *main* nunca invoca qualquer função, logo de forma a conseguir invocar a função *win* é necessário substituir o endereço na posição de memória que corresponde ao endereço de retorno na própria *main*. Assim, quando o programa terminar, executa a função *win*.
+
+Conhecendo a estrutura básica da *stack* de uma função, sabemos que, depois de alocados os parâmetros, são alocados, respetivamente, o endereço de retorno e o endereço do *base pointer* da *stack*, cada um com 8 *bytes* de memória. De seguida, são alocadas as variáveis locais.
+
+A única variável local do programa é o *buffer* de 64 *bytes*, que é onde a *string* de *input* é guardada.
+
+Para redirecionar o retorno da *main* para a função *win*, é necessário substituir o endereço de retorno a 8 *bytes* de distância do final do *buffer*, de forma a ultrapassar também o *base pointer*.
+
+Recorrendo ao *gdb*, ficamos a saber que o endereço de *win* é 0x555555554740 que, em *little endian*, corresponde à *string* *@GUUUU*.
+
+Assim, é fácil substituir os valores do endereço de retorno normais pelos desejados, bastando inserir 72 (64 + 8) *bytes* arbitrários como *input* antes de inserir a *string* *@GUUUU*.
+
+
+### Nota
+
+Foram tirados alguns *screenshots* durante o trabalho de forma a poder mostrar que, de facto, os problemas foram resolvidos. Esses *screenshots* correspondem às imagens em anexo.
